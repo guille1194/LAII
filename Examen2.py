@@ -36,36 +36,36 @@ class Empleado:
         else:
             print "No se encontraron valores"
 
-    def imprimir_menu():
-        print 30 * "-" , "MENU" , 30 * "-"
-        print "1. Imprimir suma de salario de empleados"
-        print "2. Agregar Empleados"
-        print "3. Buscar un empleado"
-        print "4. Salir"
-        print 67 * "-"
+def imprimir_menu():
+    print 30 * "-" , "MENU" , 30 * "-"
+    print "1. Imprimir suma de salario de empleados"
+    print "2. Agregar Empleados"
+    print "3. Buscar un empleado"
+    print "4. Salir"
+    print 67 * "-"
 
-    ciclo=True
+ciclo=True
 
-    while ciclo:
-        imprimir_menu()
-        eleccion = input("Ingrese su opcion [1-5]: ")
+while ciclo:
+    imprimir_menu()
+    eleccion = input("Ingrese su opcion [1-5]: ")
 
-        if eleccion==1:
-            print "Imprimir la lista"
-            nombre1 = list(empleados_db)[0]
-            eht1 = list(eht_db)[0]
-            empleado1 = Empleado(nombre1,eht1,28)
-            print "El empleado", nombre1, "trabajo", eht1, "horas con un sueldo total de", empleado1.sueldo
-        elif eleccion==2:
-            agregar_elemento(5);
-            print empleados_db
-        elif eleccion==3:
-            lol = raw_input("Ingresar un valor a buscar: ")
-            buscar_elemento(lol)
-            print lol
-        elif eleccion==4:
-            print "Hasta Luego"
-            ciclo=False
+    if eleccion==1:
+        print "Imprimir la lista"
+        nombre1 = list(empleados_db)[0]
+        eht1 = list(eht_db)[0]
+        empleado1 = Empleado(nombre1,eht1,28)
+        print "El empleado", nombre1, "trabajo", eht1, "horas con un sueldo total de", empleado1.sueldo
+    elif eleccion==2:
+        Empleado.agregar_elemento(5);
+        print empleados_db
+    elif eleccion==3:
+        lol = raw_input("Ingresar un valor a buscar: ")
+        Empleado.buscar_elemento(lol)
+        print lol
+    elif eleccion==4:
+        print "Hasta Luego"
+        ciclo=False
 
-        else:
-            raw_input("Esa opcion no existe, por favor ingrese un valor valido.")
+    else:
+        raw_input("Esa opcion no existe, por favor ingrese un valor valido.")
