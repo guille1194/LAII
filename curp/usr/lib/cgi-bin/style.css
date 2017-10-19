@@ -1,0 +1,41 @@
+body 
+{
+	background-image:url("http://psartdigital.files.wordpress.com/2008/06/fondo-degradado-copia11.jpg");
+	color: black;
+	font-family: Arial;
+}
+#logo
+{
+	position: absolute;
+	top:5%;
+	left:5%;
+	opacity: .8;
+}	
+h1
+{
+	position:absolute;
+    	left: 30%;
+	font-family:Calibri;
+	font-size:35pt;
+	top:15%;
+}
+h2
+{
+	position:absolute;
+	top:90%;
+	left:25%;
+	font-family:Calibri;
+	font-size: 19px;
+}
+table
+{
+	position:absolute;
+	text-align:center;
+	top: 35%;
+    	left: 6%;
+	background-color:#3B240B;
+	opacity:.9;
+	color: black;
+	font-size: 17.5pt;
+	
+}

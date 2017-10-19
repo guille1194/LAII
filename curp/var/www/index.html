@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="estilo.css" />  <!--Link hacia la css  -->
+<title>Curp-Gen</title
+</head>
+<script type="text/javascript">  //Un pequeño código en javascript para conocer la hora y determinar si es de dia, de tarde o de noche
+var fecha = new Date();
+var tiempo = fecha.getHours();
+
+if ((tiempo < 13)&&(tiempo >5))
+{
+	document.write("<h2>")
+	document.write("<Buenos Dias</b>");
+	document.write("</h2>")
+}
+else
+if ((tiempo >12) && (tiempo < 19))
+{
+	document.write("<h2>");
+	document.write("<b>Buenas Tardes</b>");
+	document.write("</h2>");
+}
+else
+if((tiempo >18))
+{
+	document.write("<h2>");
+	document.write("<b>Buenas Noches</b>");
+	document.write("</h2>")
+}
+</script>
+
+
+<body>	 <!--Cuerpo del index o página principal-->
+<p id="subtitulo">Generador de CURP</p>
+<A HREF="file:///var/www/index.html"><img src="http://2.bp.blogspot.com/_Yr9ozXlqA6Y/TJOF5LSoncI/AAAAAAAAAEQ/wnSVBfBCp4g/s320/cooltext469938664.gif" id="logo"/></A>
+
+<form name="acceso" id="form" action="http://localhost/cgi/emmanuel.py" method="get"> <!--Parámetros del formulario-->
+
+<table border="1">
+<TR>
+<TD  >Nombre(s)</TD>  <!--Campo para leer los nombres-->
+<TD><input type="text" name="Name" size="23"/></TD>
+</TR>
+
+<TR>
+<TD  >Apellidos</TD> <!--Campo para los apellidos-->
+<TD><input type="text" name="Ap" size="23"/></TD>
+</TR>
+
+<TR>
+<TD  >Fecha de Nacimiento(DD/MM/AA)</TD> <!--Campo para la fecha de nacimiento-->
+<TD><input type="text" name="FN" size="15"/></TD>
+</TR>
+<TR>
+	<TD  >G&eacute;nero</TD>
+	<TD>
+	Hombre: <INPUT type=radio name="GN" value="H" ><!--Campo para obtener el género-->
+	Mujer: <INPUT type=radio name="GN" value="M">
+	<br>
+	</TD>
+<TR>
+	<TD> Lugar de Nacimiento</TD> <!--Campo para el lugar de nacimiento-->
+	<TD><select name="LN" type=control>
+	<option value="AS">Aguascalientes</option>
+	<option value="BC">Baja California</option>
+	<option value="BS">Baja California Sur</option>
+	<option value="CC">Campeche</option>
+	<option value="CS">Chiapas</option>
+	<option value="CH">Chihuahua</option>
+	<option value="CL">Coahuila</option>
+	<option value="CM">Colima</option>
+	<option value="DF">Distrito Federal</option>
+	<option value="DG">Durango</option>
+	<option value="GT">Guanajuato</option>
+	<option value="GR">Guerrero</option>
+	<option value="HG">Hidalgo</option>
+	<option value="JL">Jalisco</option>
+	<option value="MC">Mexico</option>
+	<option value="MS">Morelos</option>
+	<option value="MN">Michoacan</option>
+	<option value="NT">Nayarit</option>
+	<option value="NL">Nuevo Leon</option>
+	<option value="OC">Oaxaca</option>
+	<option value="PL">Puebla</option>
+	<option value="QT">Queretaro</option>
+	<option value="QR">Quintana Roo</option>
+	<option value="SP">San Luis Potosi</option>
+	<option value="SL">Sinaloa</option>
+	<option value="SR">Sonora</option>
+	<option value="TC">Tabasco</option>
+	<option value="TS">Tamaulipas</option>
+	<option value="TL">Tlaxcala</option>
+	<option value="VZ">Veracruz</option>
+	<option value="YN">Yucatan</option>
+	<option value="ZS">Zacatecas</option>
+	<option value="NE">Extranjero</option>
+
+</select>
+<TD>
+</TR>
+
+<TR>
+
+<TD COLSPAN=2 >
+<b id="nota">Nota: Los ultimos 2 digitos son asignados por la RENAPO dependiendo si hay otra persona con los mismos datos.En este programa ser&aacute;n contados en orden que son ingresados los CURP.<b><br>
+<input type="submit" value="Enviar" style="height:30px; width: 70px "/>
+</TD> <!--Envio de los datos al programa-->
+</TR>
+</table>
+
+</form>
+
+<ul id="menu">
+<li><A HREF="file:///var/www/index.html">Home</A></li>
+<li><A HREF="http://emmanuelgs.blogspot.com">Mi Blog</A></li>
+<li><A HREF="file:///usr/lib/cgi-bin/bd.html">Base de Datos</A></li>
+</ul>
+
+<h3>Copyright &#169; 2010 Emmanuel Garcia, Todos los derechos - Copyright</h3>
+</body>
+</html>
