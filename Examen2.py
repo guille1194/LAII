@@ -15,13 +15,6 @@ class Empleado:
             print "el numero que ingreso es incorrecto intente de nuevo POR FAVOR !"
         raw_input()
 
-    nombre1 = list(empleados_db)[1]
-    eht1 = list(eht_db)[1]
-
-    empleado1 = Empleado(nombre1,eht1,28)
-
-    print "El empleado", nombre1, "trabajo", eht1, "horas con un sueldo total de", empleado1.sueldo
-
     def agregar_elemento(i):
         for i in range(0,1):
             valor = raw_input("Ingrese un empleado a la lista: ")
@@ -59,8 +52,10 @@ class Empleado:
 
         if eleccion==1:
             print "Imprimir la lista"
-            print empleados_db
-            print eht_db
+            nombre1 = list(empleados_db)[0]
+            eht1 = list(eht_db)[0]
+            empleado1 = Empleado(nombre1,eht1,28)
+            print "El empleado", nombre1, "trabajo", eht1, "horas con un sueldo total de", empleado1.sueldo
         elif eleccion==2:
             agregar_elemento(5);
             print empleados_db
