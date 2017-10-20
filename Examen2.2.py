@@ -1,29 +1,148 @@
+from pulp import *
+import threading, time
+import cProfile, pstats, io
+
+pr = cProfile.Profile()
+pr.enable()
+
+t0 = time.time()
+
+usuarios_db = [['admin','123','Administrador']]
+empleados_db = []
+
+#metodos con init
+class Usuario:
+    def __init__(self, nombreu, clave, rol):
+        self.nombreu = nombreu
+        self.clave = clave
+        self.rol = rol
 
 class Empleado:
-    def  __init__(self, nombre, horas_trabajo, sueldo_hora, sueldo_total):
+    def __init__(self, nombree, horas_trabajo, sueldo_hora):
+        self.nombree = nombree
+        self.horas_trabajo = horas_trabajo
+        self.sueldo_hora = sueldo_hora
 
-        def salario():
-            extras=horas_trabajo-40
-            if horas_trabajo<=40 and horas_trabajo>0:
-                sueldo=horas_trabajo*sueldo_hora
-                print "su sueldo es:",sueldo
-                print"no posee horas extras"
-            elif horas_trabajo>40:
-                sueldo_extra=(extras*sueldo_hora)*.1
-                sueldo=horas_trabajo*sueldo_hora
-                sueldo_total=sueldo+sueldo_extra
-                print "su sueldo es:",sueldo
-                print "el sueldo de sus horas extras es:",sueldo_extra
-                print "su sueldo total es",sueldo_total
-            else:
-                print "el numero que ingreso es incorrecto intente de nuevo POR FAVOR !"
-            raw_input()
+def inicio_sesion(nombreu, clave):
+    for usuario in usuarios_db:
+        if usuario[0] == nombreu:
+            if usuario[1] == clave:
+                return True
 
-nombre = raw_input("Ingresar nombre de empleado: ")
-eht = input("Ingresar horas trabajadas: ")
+def imprimir_menu():
+    print 30 * "-" , "MENU" , 30 * "-"
+    print "1. Calcular nomina"
+    print "2. Registrar Empleados"
+    print "3. Desplegar Empleados"
+    print "4. Salir"
+    print 67 * "-"
 
-empleado1 = Empleado(nombre,eht,28, 0)
+def nomina():
+    sueldo_total = 0
+    extras_totales = 0
+    print 67 * "-"
+    for empleado in empleados_db:
+        if empleado.horas_trabajo > 0:
+            extra = empleado.horas_trabajo - 40
+            sueldo = (empleado.sueldo_hora * 40) + (extra * (empleado.sueldo_hora * 1.10))
+            sueldo_total += sueldo
+            extras_totales += extra
+            print "Empleado: " + empleado.nombree +", " + "Horas Trabajadas: " + str(empleado.horas_trabajo) + ", " + "Horas Extra: " + str(extra) +", "+ "Sueldo Total: " + str(sueldo)
+    print 67 * "-"
+    print "Resumen"
+    print "Nomina Total: " + str(sueldo_total)
+    print "Total de Horas Extra en Horas: " + str(extras_totales)
+    print
+    print
 
-print empleado1.nombre
+def registro():
+    print
+    print "Ingrese los sigientes datos"
+    print
+    nombree = raw_input("Nombre Empleado: ")
+    horas_trabajo = input("Horas Trabajadas: ")
+    sueldo_hora = 28
+    empleados_db.append(Empleado(nombree,horas_trabajo,sueldo_hora))
+    print "Exito"
+    print
 
-#print "El empleado", nombre1, "trabajo", eht1, "horas con un sueldo total de", empleado1.sueldo_total
+def lista():
+    i = 1
+    for empleado in empleados_db:
+        print str(i) +".- " + empleado.nombree + ", " + "Horas Trabajadas: " + str(empleado.horas_trabajo)
+        ++i
+
+funciones = { '1': nomina , '2': registro, '3': lista }
+
+print 67 * "-"
+print "Bienvenido al Sistema"
+print 67 * "-"
+print
+print "Inicie Sesion para acceder al sistema"
+nombreu = raw_input("Nombre Usuario: ")
+clave = raw_input("Contrasenia: ")
+
+if inicio_sesion(nombreu, clave):
+    funcionando = True
+    while funcionando:
+        imprimir_menu()
+        opcion = raw_input("Escoger opcion: ")
+        print
+        if opcion == 4:
+            print "Hasta luego"
+            funcionando = False
+        else:
+            funciones[opcion]()
+            print
+else:
+    print "Error al iniciar sesion"
+
+#Hilos y locks
+class Mithread (threading.Thread):
+	def __init__ (self, evento):
+		threading.Thread.__init__(self)
+		self.evento = evento
+
+	def run (self):
+		print (self.getName(), "OBTENIENDO RESULTADOS")
+		self.evento.wait()
+		print (self.getName(), "RESULTADOS OBTENIDOS")
+
+evento = threading.Event()
+t1 = Mithread(evento)
+t1.start()
+
+time.sleep(6)
+#conjunto set
+evento.set()
+
+print ()
+print ('el tiempo de ejecucion en total',time.time()-t0)
+print ()
+pr.disable()
+s=io.StringIO()
+sortby='cumulative'
+ps=pstats.Stats(pr, stream=s).sort_stats(sortby)
+ps.print_stats()
+print()
+print (s.getvalue())
+
+#test stress
+import time
+loop_count = 10000000
+def method0():
+    var = "This is a short sentence"
+    for num in xrange(loop_count):
+        if "is" in var:
+            pass
+def method1():
+    var = "This is a short sentence"
+    for num in xrange(loop_count):
+        if var.find("is"):
+            pass
+t0 = time.time()
+method0()
+print 'method0(): ' + `time.time()-t0`
+t0 = time.time()
+method1()
+print 'method1(): ' + `time.time()-t0`
